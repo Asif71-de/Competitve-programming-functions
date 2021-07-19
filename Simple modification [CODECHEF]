@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+#define int long long
+using namespace std;
+int32_t main() {
+    int n, m, q1, q2;
+    cin >> n >> m >> q1 >> q2; 
+    int arr[n][m];
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<m; j++) {
+            cin >> arr[i][j];
+        }
+    }
+
+    int scanline[n][m+1];
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m + 1; j++)
+        {
+            scanline[i][j] = 0;
+        }
+    }
+    while(q1--) {
+        int k, x1, y1, x2, y2;
+        cin >> k >> x1 >> y1 >> x2 >> y2;
+        for(int i=x1; i<=x2; i++) {
+            scanline[i][y1] += k;
+            scanline[i][y2+1] -=k;
+        }
+    }
+    int scan = 0;
+    for(int i=0; i<n; i++) {
+         scan = 0;
+        for(int j=0; j<n; j++) {
+            scan += scanline[i][j];
+            arr[i][j] += scan;
+        }
+    }
+
+    int prefix[n][m];
+    for (int i = 0; i < n + 1; i++)
+    {
+        for (int j = 0; j < m + 1; j++)
+        {
+            prefix[i][j] = 0;
+        }
+    }
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<m; j++) {
+            prefix[i][j] = arr[i][j];
+            if(j>0) prefix[i][j] += prefix[i][j-1];
+            if(i>0) prefix[i][j] += prefix[i-1][j]; 
+            if(i>0 && j>0) prefix[i][j] -= prefix[i-1][j-1];    
+        }
+    }
+
+    while(q2--) {
+        int x1, y1, x2, y2;
+        cin >> x1 >> y1 >> x2 >> y2; 
+        int sum = 0;
+        sum = prefix[x2][y2];
+        if(x1>0) sum -= prefix[x1-1][y2];
+        if(y1>0) sum -= prefix[x2][y1-1];
+        if(x1>0 && y1>0) sum+= prefix[x1-1][y1-1];
+
+        cout << sum << "\n";
+    }
+    return 0;
+
+}
