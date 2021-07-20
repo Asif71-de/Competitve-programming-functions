@@ -1,0 +1,46 @@
+[3 1 5 9 10 17 21 6]
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	int n, sum;
+	cin >> n>>sum;
+	vector<int> vec(n);
+	for(int i=0; i<n; i++) {
+		cin >> vec[i];
+	}
+
+	// for(int i=0; i<n; i++) {
+	// 	cout << vec[i] << " ";
+	// }
+    // Brute Force
+    int maxi = *max_element(vec.begin(), vec.end());
+    //cout << maxi;
+	// for(int i=1; i<=maxi; i++) {
+	// 	int s = 0;
+	// 	for(int j=0; j<n; j++) {
+	// 		s+=(vec[j]/i);
+	// 	}
+	// 	if(s<=sum) {
+	// 		cout << i ;
+	// 		break;
+	// 	}
+	// }
+
+	int low = 1;
+	int high = maxi+1;
+	
+	while(low<=high) {
+		int mid = (low+high) / 2;
+		int s = 0;
+		for(int i=0; i<n; i++) {
+            s+= (vec[i] / mid);
+		}
+		if(s<=sum) {
+			high = mid-1;
+		} else low = mid+1;
+	}
+	cout<< low;
+
+    
+
+}
