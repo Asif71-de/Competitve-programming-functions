@@ -1,0 +1,41 @@
+//BINARY SEARCH
+
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int t;
+    cin>>t;
+    while(t--) {
+        int stall, cow;
+        cin >> stall >> cow;
+        int arr[stall];
+        for(int i=0; i<stall; i++) {
+            cin >> arr[i];
+        }
+        sort(arr, arr+stall);
+        int maxi = *max_element(arr, arr+stall);
+        int mini = *min_element(arr, arr+stall);
+        
+        int high = maxi-mini;
+        int low = 1;
+        while(low<=high) {
+            int mid = (low+high) / 2;
+            int cowPlaced = arr[0];
+            int numberOfCow = 1;
+            for(int i=0; i<stall; i++) {
+                if(arr[i]-cowPlaced>=mid) {
+                    cowPlaced = arr[i];
+                    numberOfCow++;
+                }
+                if(numberOfCow == cow) {
+                    break;
+                }
+            }
+
+            if(numberOfCow == cow) low = mid+1;
+            else high = mid-1;
+        }
+        cout << high << endl;
+
+    }
+}
