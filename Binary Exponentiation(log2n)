@@ -1,0 +1,23 @@
+pow()function
+#include<bits/stdc++.h>
+using namespace std;
+int power(int base, int n) {
+   int ans = 1;
+   while(n>0) {
+   if(n%2==0) {
+    base = base*base;
+     n = n/2;
+     
+   } else {
+     ans = ans*base;
+     n = n -1;
+   }}
+   return ans;
+}
+
+int main() {
+  int base, n;
+  cin >> base >> n;
+  int a = power(base, n);
+  cout << a;
+}
