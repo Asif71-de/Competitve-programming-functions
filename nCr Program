@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+// #define mod(int)(1e9+7)
+// #define int long long
+// int fact(int n){
+//     int f = 1;
+//     for(int i=1; i<=n; i++) {
+//         f = (f*i)%mod;
+//     }
+//     return f;
+// }
+// int pow(int base, int n) {   //TIME COOMPL - O(n)
+//     int ans = 1;
+//     whike(n) {
+//        if(n%2) {
+//           ans = (base*ans)%mod;
+//           n = n-1;
+//         }  else {
+//            base = (base*base)%mod;
+//            n = n/2;
+//        } 
+//     }
+//     return ans;
+// }
+// int nCr(int n, int r) {
+//     int ans = fact(n);
+//     int denominator = (fact(n-r)*fact(n)) % mod;
+//     ans = (ans*pow(denominator, mod-2, mod)) % mod;
+//     return ans;
+// }
+
+
+// A simple technique to find the nCr
+//10c3 = 10*9*8 / 3*2*1
+int nCr(int n, int r) {
+    int num = 1;
+    int denominator = 1;
+    for(int i=1; i<=min(r, n-r); i++) {
+        denominator = denominator*i;         //TIME COMPL - O(n)
+        num = num*(n-i+1);
+    }
+
+    int ans = num/denominator;
+    return ans;  
+}
+
+
+int main() {
+  int n = 10;
+  int r = 3;
+  cout << nCr(n, r);
+}
+
+
+
+
